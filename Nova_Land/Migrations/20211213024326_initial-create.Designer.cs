@@ -9,7 +9,7 @@ using Nova_Land.Data;
 
 namespace Nova_Land.Migrations
 {
-    [DbContext(typeof(AuthDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20211213024326_initial-create")]
     partial class initialcreate
     {

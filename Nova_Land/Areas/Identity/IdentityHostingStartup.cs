@@ -16,12 +16,12 @@ namespace Nova_Land.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<AuthDbContext>(options =>
+                services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthDbContextConnection")));
 
                 services.AddDefaultIdentity<Nova_LandUser>(options => options.SignIn.RequireConfirmedAccount = false)
-                    .AddEntityFrameworkStores<AuthDbContext>();
+                    .AddEntityFrameworkStores<ApplicationDbContext>();
             });
         }
     }
