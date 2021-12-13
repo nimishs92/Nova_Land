@@ -17,7 +17,7 @@ namespace Nova_Land.Areas.Identity
         {
             builder.ConfigureServices((context, services) => {
                 services.AddDbContext<AuthDbContext>(options =>
-                    options.UseMySQL(
+                    options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthDbContextConnection")));
 
                 services.AddDefaultIdentity<Nova_LandUser>(options => options.SignIn.RequireConfirmedAccount = false)
