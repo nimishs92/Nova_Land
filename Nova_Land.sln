@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.810.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova_Land", "Nova_Land\Nova_Land.csproj", "{0DCE291C-85B3-435B-A5E5-A16A7CBBE436}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0DCE291C-85B3-435B-A5E5-A16A7CBBE436}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DCE291C-85B3-435B-A5E5-A16A7CBBE436}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DCE291C-85B3-435B-A5E5-A16A7CBBE436}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DCE291C-85B3-435B-A5E5-A16A7CBBE436}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A7696F7-4032-4F40-873B-030DE0A776FE}
+	EndGlobalSection
+EndGlobal
