@@ -75,7 +75,7 @@
                     </div>
                     <div class="row">
                         <div class="col-3">
-                            <h4>@product.Name</h4>
+                            <a class="nav-link text-dark" href="Details/@product.Id">@product.Name</a>
                             @*<h3>@Html.DisplayFor(product => product.Name)</h3>*@
                         </div>
                         <div class="col-3">
@@ -86,7 +86,7 @@
                             @*@Html.DisplayFor(product => product.UnitPrice) $*@
                         </div>
                         <div class="col-3">
-                            @using (Html.BeginForm("AddToCart", "Product", FormMethod.Get))
+                            @using (Html.BeginForm("AddToCartSearch", "Product", FormMethod.Get))
                             {
                                 <input type="hidden" name="Search" value="@Html.DisplayFor(model => model.SearchParams.Search)" />
                                 <input type="hidden" name="Province" value="@Html.DisplayFor(model => model.SearchParams.Province)" />
