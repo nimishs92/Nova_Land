@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -56,7 +57,7 @@ namespace Nova_Land.Controllers
             };
 
             searchModelVM.Products = GetProducts(searchModelVM.SearchParams);
-
+            searchModelVM.IsItemAdded = false;
             return View(searchModelVM);
         }
 
@@ -84,6 +85,7 @@ namespace Nova_Land.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult AddToCart(IFormCollection collection)
         {
             ProductSearchViewModel searchModelVM = new ProductSearchViewModel
@@ -130,9 +132,62 @@ namespace Nova_Land.Controllers
             }
 
             _applicationDbContext.SaveChanges();
+            searchModelVM.IsItemAdded = true;
             return View("Search", searchModelVM);
         }
 
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddToCart(string Search, string Province, string City, string ProductId)
+        {
+            ProductSearchViewModel searchModelVM = new ProductSearchViewModel
+            {
+                SearchParams = new SearchParamsViewModel
+                {
+                    City = City,
+                    Province = Province,
+                    Search = Search
+                }
+            };
+
+            searchModelVM.Products = GetProducts(searchModelVM.SearchParams);
+
+            Product selectedProduct = searchModelVM.Products.FirstOrDefault(product => product.Id == Int32.Parse(ProductId));
+
+            Nova_LandUser applicationUser = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
+
+            OrderLineItem orderLineItem = new OrderLineItem
+            {
+                Product = selectedProduct,
+                Price = selectedProduct.UnitPrice
+            };
+
+            // Check if user has a cart already
+
+            var UserCart = _applicationDbContext.Orders.Include(order => order.OrderLineItems).FirstOrDefault(order => order.IsCart == true && order.User.Id == applicationUser.Id);
+            if (UserCart != null)
+            {
+                // The user has a cart
+                UserCart.OrderLineItems.Add(orderLineItem);
+            }
+            else
+            {
+                // Create a cart for the user.
+                _applicationDbContext.Orders.Add(new Order
+                {
+                    IsCart = true,
+                    OrderDate = DateTime.Now,
+                    Status = OrderStatus.NEW,
+                    User = applicationUser,
+                    OrderLineItems = new List<OrderLineItem>() { orderLineItem }
+                });
+            }
+
+            _applicationDbContext.SaveChanges();
+
+            searchModelVM.IsItemAdded = true;
+            return View("Search", searchModelVM);
+        }
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
