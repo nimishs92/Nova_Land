@@ -42,6 +42,15 @@ namespace Nova_Land.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult PaymentComplete(Payment payment)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+            return View("Payment", payment);
+        }
 
         public IActionResult Details()
         {
