@@ -38,7 +38,7 @@ namespace Nova_Land.Controllers
             return View();
         }
 
-        public IActionResult Payment()
+        public IActionResult Payment(int OrderId)
         {
             return View();
         }

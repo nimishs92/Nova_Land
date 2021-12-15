@@ -108,7 +108,7 @@ namespace Nova_Land.Controllers
 
             _applicationDbContext.SaveChanges();
 
-            return RedirectToAction("Payment", "Home");
+            return RedirectToAction("Payment", "Home", new { OrderId = UserCart.ID});
         }
 
         // POST: CheckoutController/Delete/5
