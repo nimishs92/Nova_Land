@@ -4,11 +4,51 @@
 @model Nova_Land.Models.Order
 @{
 }
-@Model.User.FirstName
+
+
+
+<h1>Checkout Page</h1>
+
+
+
+ <head><link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+
+        
+
+
+
 
 @foreach (var orderline in Model.OrderLineItems)
 {
-    <h2>@orderline.Product.Name</h2>
-    <h2>@orderline.Price</h2>
-}
-<h1>Checkout Page</h1>
+
+        <div class="card mb-3" >
+            <div class="row no-gutters">
+              <div class="col-md-2" style="padding: 10px;">
+                <i class="fa fa-shopping-cart" style="font-size:30px"></i>
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">@orderline.Product.Name</h5>
+                  <p class="card-text">@orderline.Product.Description</p>
+                  
+                </div>
+              </div>
+              <div class="col-md-2">
+                <div class="card-body" style="justify-content:center;">
+                  <h5 class="card-title" style="text-align:center;margin-top:60px;-moz-text-size-adjust:20px">@orderline.Price$</h5>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+  }        
+
+<div style="text-align:center;">
+          <input class="btn btn-primary" type="submit" value="Checkout"></div>
+        
+    </body>
+        </html>
