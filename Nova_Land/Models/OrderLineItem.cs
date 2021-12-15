@@ -13,5 +13,9 @@ namespace Nova_Land.Models
         public string Status { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+        [System.ComponentModel.DataAnnotations.Schema.ForeignKey("Order")]
+        public int OrderRef { get; set; }
+        public Order Order { get; set; }
+
     }
 }

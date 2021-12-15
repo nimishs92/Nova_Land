@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Nova_Land.Data;
 using Nova_Land.Models;
 
 namespace Nova_Land.Controllers
@@ -12,15 +13,19 @@ namespace Nova_Land.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private ApplicationDbContext _applicationDbContext;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext applicationDbContext)
         {
             _logger = logger;
+            _applicationDbContext = applicationDbContext;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var categoryQuery = from cat in _applicationDbContext.Categories
+                                select cat;
+            return View(categoryQuery.ToList<Category>());
         }
 
         public IActionResult Privacy()
