@@ -5,40 +5,47 @@
 @{
 }
 <h1>Checkout Page</h1>
-@foreach (var orderline in Model.OrderLineItems)
+@if (Model.OrderLineItems.Count > 0)
 {
-    <div class="card mb-3">
-        <div class="row no-gutters">
-            <div class="col-md-2" style="padding: 10px;">
-                <i class="fa fa-shopping-cart" style="font-size:30px"></i>
-            </div>
-            <div class="col-md-6">
-                <div class="card-body">
-                    <h5 class="card-title">@orderline.Product.Name</h5>
-                    <p class="card-text">@orderline.Product.Description</p>
+    @foreach (var orderline in Model.OrderLineItems)
+    {
+        <div class="card mb-3">
+            <div class="row no-gutters">
+                <div class="col-md-2" style="padding: 10px;">
+                    <i class="fa fa-shopping-cart" style="font-size:30px"></i>
+                </div>
+                <div class="col-md-6">
+                    <div class="card-body">
+                        <h5 class="card-title">@orderline.Product.Name</h5>
+                        <p class="card-text">@orderline.Product.Description</p>
 
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div class="card-body" style="justify-content:center;">
-                    <h5 class="card-title" style="text-align:center;margin-top:60px;-moz-text-size-adjust:20px">@orderline.Price$</h5>
+                <div class="col-md-2">
+                    <div class="card-body" style="justify-content:center;">
+                        <h5 class="card-title" style="text-align:center;margin-top:60px;-moz-text-size-adjust:20px">@orderline.Price$</h5>
+                    </div>
                 </div>
-            </div>
-            <div class="col-2">
-                @using (Html.BeginForm("Delete","Checkout", FormMethod.Get))
-                {
-                    <input type="hidden" name="id" value="@orderline.Id" />
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                }
+                <div class="col-2">
+                    @using (Html.BeginForm("Delete", "Checkout", FormMethod.Get))
+                    {
+                        <input type="hidden" name="id" value="@orderline.Id" />
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    }
+                </div>
             </div>
         </div>
+    }
+    <div style="text-align:center;">
+        @using (Html.BeginForm("CheckoutCart", "Checkout", FormMethod.Get))
+        {
+            <input class="btn btn-primary" type="submit" value="Checkout">
+        }
+
     </div>
 }
+else
+{
+    <p>The cart is empty.</p>
+}
 
-<div style="text-align:center;">
-    @using (Html.BeginForm("CheckoutCart", "Checkout", FormMethod.Get))
-    {
-    <input class="btn btn-primary" type="submit" value="Checkout">
-    }
-    
-</div>
