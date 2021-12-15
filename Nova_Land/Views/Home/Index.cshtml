@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
-
+<head><script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script></head>
 <div class="text-center">
     @using (Html.BeginForm("Search", "Product", FormMethod.Post))
     {
@@ -41,9 +41,7 @@
     <div class="pt-5 row">
         <div class="col-6">
             <div class="card">
-                <svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" fill="currentColor" class="card-img-top bi bi-house-door" viewBox="0 0 16 16">
-                    <path d="M8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4.5a.5.5 0 0 0 .5-.5v-4h2v4a.5.5 0 0 0 .5.5H14a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146zM2.5 14V7.707l5.5-5.5 5.5 5.5V14H10v-4a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v4H2.5z" />
-                </svg>
+                <i class='fas fa-house-user' style='font-size:48px;padding-top:15px;'></i>
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(model => model[0].CategoryName)</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -53,19 +51,21 @@
         </div>
         <div class="col-6">
             <div class="card">
-                <i class="fas fa-car-side"></i>
+                
+               <i class='fas fa-car-side' style='font-size:48px;padding-top:15px;'></i>
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(model => model[1].CategoryName)</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Car Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                     <a href="#" class="btn btn-primary">Go somewhere</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <br />
+    <div class="row" >
         <div class="col-6">
             <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <i class='fas fa-couch' style='font-size:48px;padding-top:15px;'></i>
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(model => model[2].CategoryName)</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
@@ -75,7 +75,7 @@
         </div>
         <div class="col-6">
             <div class="card">
-                <img class="card-img-top" src="..." alt="Card image cap">
+                <i class='fas fa-truck' style='font-size:48px;padding-top:15px;'></i>
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(model => model[3].CategoryName)</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
