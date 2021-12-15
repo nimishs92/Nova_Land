@@ -6,7 +6,6 @@ using Nova_Land.Areas.Identity.Data;
 using Nova_Land.Data;
 using Nova_Land.Models;
 using Nova_Land.ViewModels;
-using Nova_Land.Views.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
