@@ -18,11 +18,13 @@ namespace Nova_Land.Controllers
     {
         private ApplicationDbContext _applicationDbContext;
         private readonly UserManager<Nova_LandUser> _userManager;
+        private readonly SignInManager<Nova_LandUser> _signInManager;
 
-        public ProductController(ApplicationDbContext applicationDbContext, UserManager<Nova_LandUser> userManager)
+        public ProductController(ApplicationDbContext applicationDbContext, UserManager<Nova_LandUser> userManager, SignInManager<Nova_LandUser> signInManager)
         {
             _applicationDbContext = applicationDbContext;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
         // GET: ProductController
         public ActionResult Index()
@@ -33,7 +35,21 @@ namespace Nova_Land.Controllers
         // GET: ProductController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var ProductQuery = from product in _applicationDbContext.Products
+                               where product.Id == id
+                               select product;
+            var ProductList = ProductQuery.ToList();
+            var Product = new Product();
+            if (ProductList.Count() > 0)
+            {
+                Product = ProductList[0];
+            }
+            ProductDetailsViewModel productDetailsVM = new ProductDetailsViewModel
+            {
+                Product = Product,
+                IsItemAdded = false
+            };
+            return View(productDetailsVM);
         }
 
         // GET: ProductController/Create
@@ -85,9 +101,15 @@ namespace Nova_Land.Controllers
         }
 
         [HttpPost]
+        [HttpGet]
         [Authorize]
-        public ActionResult AddToCart(IFormCollection collection)
+        public ActionResult AddToCartPost(IFormCollection collection)
         {
+            
+            if (_signInManager.IsSignedIn(User))
+            {
+
+            }
             ProductSearchViewModel searchModelVM = new ProductSearchViewModel
             {
                 SearchParams = new SearchParamsViewModel
@@ -138,7 +160,7 @@ namespace Nova_Land.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult AddToCart(string Search, string Province, string City, string ProductId)
+        public ActionResult AddToCartSearch(string Search, string Province, string City, string ProductId)
         {
             ProductSearchViewModel searchModelVM = new ProductSearchViewModel
             {
@@ -152,7 +174,29 @@ namespace Nova_Land.Controllers
 
             searchModelVM.Products = GetProducts(searchModelVM.SearchParams);
 
-            Product selectedProduct = searchModelVM.Products.FirstOrDefault(product => product.Id == Int32.Parse(ProductId));
+            searchModelVM.IsItemAdded = AddToCart(ProductId);
+            return View("Search", searchModelVM);
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult AddToCartDetails(string ProductId)
+        {
+            Product selectedProduct = _applicationDbContext.Products.FirstOrDefault(product => product.Id == Int32.Parse(ProductId));
+
+            var IsItemAdded = AddToCart(ProductId);
+
+            ProductDetailsViewModel productDetailsVM = new ProductDetailsViewModel
+            {
+                Product = selectedProduct,
+                IsItemAdded = true
+            };
+            return View("Details", productDetailsVM);
+        }
+
+        public bool AddToCart(string ProductId)
+        {
+            Product selectedProduct = _applicationDbContext.Products.FirstOrDefault(product => product.Id == Int32.Parse(ProductId));
 
             Nova_LandUser applicationUser = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
 
@@ -185,9 +229,10 @@ namespace Nova_Land.Controllers
 
             _applicationDbContext.SaveChanges();
 
-            searchModelVM.IsItemAdded = true;
-            return View("Search", searchModelVM);
+            return true;
         }
+
+
         // POST: ProductController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ namespace Nova_Land.Controllers
             _userManager = userManager;
         }
         // GET: CheckoutController
+        [Authorize]
         public ActionResult Index()
         {
             Nova_LandUser applicationUser = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
@@ -78,9 +80,35 @@ namespace Nova_Land.Controllers
         }
 
         // GET: CheckoutController/Delete/5
+        [HttpGet]
+        [Authorize]
         public ActionResult Delete(int id)
         {
-            return View();
+            var lineitem =_applicationDbContext.OrderLineItems.FirstOrDefault(ol => ol.Id == id);
+            if (lineitem != null)
+            {
+                _applicationDbContext.OrderLineItems.Remove(lineitem);
+                _applicationDbContext.SaveChanges();
+            }
+            return RedirectToAction("Index", "Checkout");
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult CheckoutCart()
+        {
+            Nova_LandUser applicationUser = _userManager.GetUserAsync(User).GetAwaiter().GetResult();
+
+            var UserCart = _applicationDbContext.Orders.Include(order => order.OrderLineItems)
+                            .ThenInclude(orderLi => orderLi.Product)
+                            .FirstOrDefault(order => order.IsCart == true && order.User.Id == applicationUser.Id);
+
+            UserCart.IsCart = false;
+            UserCart.Status = Models.OrderStatus.ONHOLD;
+
+            _applicationDbContext.SaveChanges();
+
+            return RedirectToAction("Payment", "Home");
         }
 
         // POST: CheckoutController/Delete/5
