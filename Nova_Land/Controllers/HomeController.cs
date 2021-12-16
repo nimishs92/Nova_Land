@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Nova_Land.Data;
 using Nova_Land.Models;
@@ -41,7 +42,13 @@ namespace Nova_Land.Controllers
 
         public IActionResult Payment(int OrderId)
         {
-            return View(new PaymentViewModel { OrderId = OrderId});
+            Order Order = _applicationDbContext.Orders.Include(order => order.OrderLineItems).FirstOrDefault(order => order.ID == OrderId);
+            double TotalCost = 0;
+            foreach (var item in Order.OrderLineItems)
+            {
+                TotalCost += item.Price;
+            }
+            return View(new PaymentViewModel { OrderId = OrderId, TotalPrice = TotalCost});
         }
         [HttpPost]
         public IActionResult PaymentComplete(PaymentViewModel paymentViewModel)

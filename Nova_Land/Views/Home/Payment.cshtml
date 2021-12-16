@@ -7,6 +7,12 @@
 {
     <div class="row">
         <div class="col-md-6 mb-3">
+            <label for="cc-name">Total</label>
+            <h2>@Model.TotalPrice $</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
             <label for="cc-name">Credit Card Holder Full Name</label>
             <input asp-for="Payment.CreditCardHolderName" class="form-control">
             <span asp-validation-for="Payment.CreditCardHolderName" class="text-danger"></span>
@@ -84,6 +90,7 @@
             <span asp-validation-for="Payment.cvv" class="text-danger"></span>
         </div>
         <input type="hidden" value="@Model.OrderId" name="OrderId" />
+        <input type="hidden" value="@Model.TotalPrice" name="TotalPrice" />
     </div>
     <hr class="mb-4">
     <div style="text-align:center;"><button class="btn btn-primary btn-lg" type="submit">Make Payment</button></div>
