@@ -19,7 +19,7 @@ namespace Nova_Land.Validators
             }
             else if (payment.Country.ToLower() == "canada")
             {
-                if (!Regex.Match(payment.Zip, _caZipRegEx).Success)
+                if (!Regex.Match(payment.Zip.ToUpper(), _caZipRegEx).Success)
                     return new ValidationResult("Invalid Zip Code for Canada");
             }
             return ValidationResult.Success;
