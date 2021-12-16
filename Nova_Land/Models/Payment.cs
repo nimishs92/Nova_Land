@@ -61,7 +61,5 @@ namespace Nova_Land.Models
 
         [CustomZipcode]
         public string Zip { get; set; }
-
-
     }
 }

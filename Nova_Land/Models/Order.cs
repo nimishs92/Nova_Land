@@ -24,5 +24,6 @@ namespace Nova_Land.Models
         public Nova_LandUser User { get; set; }
         public ICollection<OrderLineItem> OrderLineItems { get; set; }
         public bool IsCart { get; set; }
+        public Payment? Payment { get; set; }
     }
 }

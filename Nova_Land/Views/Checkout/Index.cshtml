@@ -5,7 +5,7 @@
 @{
 }
 <h1>Checkout Page</h1>
-@if (Model.OrderLineItems.Count > 0)
+@if (Model != null && Model.OrderLineItems.Count > 0)
 {
     @foreach (var orderline in Model.OrderLineItems)
     {
