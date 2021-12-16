@@ -4,6 +4,7 @@
 @model Nova_Land.ViewModels.ProductSearchViewModel
 @{
     ViewData["SearchParams"] = Model.SearchParams;
+    ViewData["Title"] = "Search";
 }
 
 @if (Model.IsItemAdded)
@@ -42,7 +43,13 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <input class="form-control" placeholder="Province" name="Province" value="@Html.DisplayFor(model => model.SearchParams.Province)" />
+                    @*<input class="form-control" placeholder="Province" name="Province" value="@Html.DisplayFor(model => model.SearchParams.Province)" />*@
+                    @Html.DropDownListFor(m => m.SearchParams.Province, new SelectList(new List<string>()
+                    { "Alberta", "British Columbia", "Manitoba", "Nova Scotia", "New Brunswick",
+                   "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia",
+                   "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon" }), Model.SearchParams.Province, new { @class = "form-control" })
+
+
                     <span class="text-danger"></span>
                 </div>
             </div>
@@ -66,35 +73,37 @@
         <div class="container">
             @foreach (var product in Model.Products)
             {
-                @*<partial name="_ProductTilePartial"
-                    model=product view-data="ViewData"/>*@
-
-                <div class="card">
+                <div class="card p-2">
                     <div class="card-body">
-
-                    </div>
-                    <div class="row">
-                        <div class="col-3">
-                            <a class="nav-link text-dark" href="Details/@product.Id">@product.Name</a>
-                            @*<h3>@Html.DisplayFor(product => product.Name)</h3>*@
-                        </div>
-                        <div class="col-3">
-                            @product.Description.Substring(0, 50)
-                        </div>
-                        <div class="col-3">
-                            @product.UnitPrice $
-                            @*@Html.DisplayFor(product => product.UnitPrice) $*@
-                        </div>
-                        <div class="col-3">
-                            @using (Html.BeginForm("AddToCartSearch", "Product", FormMethod.Get))
-                            {
-                                <input type="hidden" name="Search" value="@Html.DisplayFor(model => model.SearchParams.Search)" />
-                                <input type="hidden" name="Province" value="@Html.DisplayFor(model => model.SearchParams.Province)" />
-                                <input type="hidden" name="City" value="@Html.DisplayFor(model => model.SearchParams.City)" />
-                                <input type="hidden" name="Category" value="@Html.DisplayFor(model => model.SearchParams.Category)" />
-                                <input type="hidden" name="ProductId" value="@product.Id" />
-                                <button class="btn btn-primary" type="submit">Add To Cart</button>
-                            }
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="https://picsum.photos/150/150" />
+                            </div>
+                            <div class="col-3">
+                                <div>
+                                    <a class="nav-link text-dark" href="Details/@product.Id">@product.Name</a>
+                                    @product.Description.Substring(0, 50)
+                                </div>
+                            </div>
+                            <div class="col-3 card-body">
+                                <div class="align-content-center" style="text-align:center;-moz-text-size-adjust:20px">
+                                    @product.UnitPrice $
+                                </div>
+                            </div>
+                            <div class="col-3 card-body">
+                                <div style="text-align:center;-moz-text-size-adjust:20px">
+                                    @using (Html.BeginForm("AddToCartSearch", "Product", FormMethod.Get))
+                                    {
+                                        <input type="hidden" name="Search" value="@Html.DisplayFor(model => model.SearchParams.Search)" />
+                                        <input type="hidden" name="Province" value="@Html.DisplayFor(model => model.SearchParams.Province)" />
+                                        <input type="hidden" name="City" value="@Html.DisplayFor(model => model.SearchParams.City)" />
+                                        <input type="hidden" name="Category" value="@Html.DisplayFor(model => model.SearchParams.Category)" />
+                                        <input type="hidden" name="ProductId" value="@product.Id" />
+                                        <button class="btn btn-primary" type="submit">Add To Cart</button>
+                                    }
+                                </div>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>

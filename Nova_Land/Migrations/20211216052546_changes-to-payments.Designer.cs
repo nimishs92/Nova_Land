@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nova_Land.Data;
 
 namespace Nova_Land.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class AuthDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211216052546_changes-to-payments")]
+    partial class changestopayments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,9 +288,6 @@ namespace Nova_Land.Migrations
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PaymentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -296,8 +295,6 @@ namespace Nova_Land.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("PaymentId");
 
                     b.HasIndex("UserId");
 
@@ -483,15 +480,9 @@ namespace Nova_Land.Migrations
 
             modelBuilder.Entity("Nova_Land.Models.Order", b =>
                 {
-                    b.HasOne("Nova_Land.Models.Payment", "Payment")
-                        .WithMany()
-                        .HasForeignKey("PaymentId");
-
                     b.HasOne("Nova_Land.Areas.Identity.Data.Nova_LandUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
-
-                    b.Navigation("Payment");
 
                     b.Navigation("User");
                 });

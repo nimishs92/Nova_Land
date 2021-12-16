@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Nova_Land.Data;
 using Nova_Land.Models;
+using Nova_Land.ViewModels;
 
 namespace Nova_Land.Controllers
 {
@@ -40,16 +41,24 @@ namespace Nova_Land.Controllers
 
         public IActionResult Payment(int OrderId)
         {
-            return View();
+            return View(new PaymentViewModel { OrderId = OrderId});
         }
         [HttpPost]
-        public IActionResult PaymentComplete(Payment payment)
+        public IActionResult PaymentComplete(PaymentViewModel paymentViewModel)
         {
             if (ModelState.IsValid)
             {
-
+                Order order = _applicationDbContext.Orders.FirstOrDefault(o => o.ID == paymentViewModel.OrderId);
+                order.Payment = paymentViewModel.Payment;
+                _applicationDbContext.SaveChanges();
+                return View("PaymentSucess");
             }
-            return View("Payment", payment);
+            return View("Payment", paymentViewModel);
+        }
+
+        public IActionResult PaymentSucess()
+        {
+            return View();
         }
 
         public IActionResult Details()
