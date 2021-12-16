@@ -23,15 +23,18 @@
                 </div>
                 <div class="col-md-2">
                     <div class="card-body" style="justify-content:center;">
-                        <h5 class="card-title" style="text-align:center;margin-top:60px;-moz-text-size-adjust:20px">@orderline.Price$</h5>
+                        <h5 class="card-title" style="text-align:center;-moz-text-size-adjust:20px">@orderline.Price$</h5>
                     </div>
                 </div>
-                <div class="col-2">
-                    @using (Html.BeginForm("Delete", "Checkout", FormMethod.Get))
-                    {
-                        <input type="hidden" name="id" value="@orderline.Id" />
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    }
+                <div class="col-2" style="justify-content:center;">
+                    <div class="card-body" style="text-align:center;-moz-text-size-adjust:20px">
+                        @using (Html.BeginForm("Delete", "Checkout", FormMethod.Get))
+                        {
+                            <input type="hidden" name="id" value="@orderline.Id" />
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        }
+                    </div>
+                    
                 </div>
             </div>
         </div>
