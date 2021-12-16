@@ -10,5 +10,7 @@ namespace Nova_Land.ViewModels
     {
         public Payment Payment { get; set; }
         public int OrderId { get; set; }
+
+        public double TotalPrice { get; set; }
     }
 }
