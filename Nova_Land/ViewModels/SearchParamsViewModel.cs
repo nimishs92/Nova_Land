@@ -12,5 +12,7 @@ namespace Nova_Land.ViewModels
         public string Province { get; set; }
 
         public string City { get; set; }
+
+        public string Category { get; set; }
     }
 }

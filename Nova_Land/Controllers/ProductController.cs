@@ -68,7 +68,8 @@ namespace Nova_Land.Controllers
                 {
                     City = collection["City"],
                     Province = collection["Province"],
-                    Search = collection["Search"]
+                    Search = collection["Search"],
+                    Category = collection["Category"]
                 }
             };
 
@@ -95,6 +96,11 @@ namespace Nova_Land.Controllers
             if (!string.IsNullOrEmpty(searchParamsViewModel.City))
             {
                 ProductsQuery = ProductsQuery.Where(p => p.Locations.Where(loc => loc.City.Equals(searchParamsViewModel.City)).Count() > 0);
+            }
+
+            if (!string.IsNullOrEmpty(searchParamsViewModel.Category))
+            {
+                ProductsQuery = ProductsQuery.Where(p => p.Category.CategoryName.Contains(searchParamsViewModel.Category));
             }
 
             return ProductsQuery.ToList<Nova_Land.Models.Product>();
@@ -160,7 +166,7 @@ namespace Nova_Land.Controllers
 
         [HttpGet]
         [Authorize]
-        public ActionResult AddToCartSearch(string Search, string Province, string City, string ProductId)
+        public ActionResult AddToCartSearch(string Search, string Province, string City, string Category ,string ProductId)
         {
             ProductSearchViewModel searchModelVM = new ProductSearchViewModel
             {
@@ -168,7 +174,8 @@ namespace Nova_Land.Controllers
                 {
                     City = City,
                     Province = Province,
-                    Search = Search
+                    Search = Search,
+                    Category = Category
                 }
             };
 

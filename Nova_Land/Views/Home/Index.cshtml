@@ -45,7 +45,12 @@
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(model => model[0].CategoryName)</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    @using (Html.BeginForm("Search", "Product", FormMethod.Post))
+                    {
+                        <input name="Category" type="hidden" value="@Html.DisplayFor(model => model[0].CategoryName)"/>
+                        <button type="submit" class="btn btn-primary">Go</button>
+                    }
+
                 </div>
             </div>
         </div>
@@ -53,11 +58,15 @@
             <div class="card">
                 
                <i class='fas fa-car-side' style='font-size:48px;padding-top:15px;'></i>
-                <div class="card-body">
-                    <h5 class="card-title">@Html.DisplayFor(model => model[1].CategoryName)</h5>
-                    <p class="card-text">Car Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
+               <div class="card-body">
+                   <h5 class="card-title">@Html.DisplayFor(model => model[1].CategoryName)</h5>
+                   <p class="card-text">Car Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                   @using (Html.BeginForm("Search", "Product", FormMethod.Post))
+                   {
+                       <input name="Category" type="hidden" value="@Html.DisplayFor(model => model[1].CategoryName)" />
+                       <button type="submit" class="btn btn-primary">Go</button>
+                   }
+               </div>
             </div>
         </div>
     </div>
@@ -69,7 +78,11 @@
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(model => model[2].CategoryName)</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    @using (Html.BeginForm("Search", "Product", FormMethod.Post))
+                    {
+                        <input name="Category" type="hidden" value="@Html.DisplayFor(model => model[2].CategoryName)" />
+                        <button type="submit" class="btn btn-primary">Go</button>
+                    }
                 </div>
             </div>
         </div>
@@ -79,7 +92,11 @@
                 <div class="card-body">
                     <h5 class="card-title">@Html.DisplayFor(model => model[3].CategoryName)</h5>
                     <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                    @using (Html.BeginForm("Search", "Product", FormMethod.Post))
+                    {
+                        <input name="Category" type="hidden" value="@Html.DisplayFor(model => model[3].CategoryName)" />
+                        <button type="submit" class="btn btn-primary">Go</button>
+                    }
                 </div>
             </div>
         </div>
