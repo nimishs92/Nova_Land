@@ -42,7 +42,8 @@
         <div class="row">
             <div class="col-6">
                 <div class="form-group">
-                    <input class="form-control" placeholder="Province" name="Province" value="@Html.DisplayFor(model => model.SearchParams.Province)" />
+                    @*<input class="form-control" placeholder="Province" name="Province" value="@Html.DisplayFor(model => model.SearchParams.Province)" />*@
+                    @Html.DropDownList("Province", new SelectList(new List<string>() { "Alberta", "British Columbia", "Manitoba", "Nova Scotia", "New Brunswick", "Newfoundland and Labrador", "Northwest Territories", "Nova Scotia", "Nunavut", "Ontario", "Prince Edward Island", "Quebec", "Saskatchewan", "Yukon" }), new { @class = "form-control" })
                     <span class="text-danger"></span>
                 </div>
             </div>
