@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nova_Land.Validators;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,25 +9,28 @@ namespace Nova_Land.Models
 {
     public enum paymentMethod
     {
-        Visa,
         Master,
+        Visa,
         AmericanExpress
     }
     public class Payment
     {
-        
+        internal string zip;
+
         public int Id { get; set; }
         [Required]
-        public paymentMethod PaymentType { get; set; }
+        public paymentMethod paymenttype { get; set; }
+       
         [Required(ErrorMessage = "Name is required")]
         [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+)|([A-za-z]+[\s]{1}[A-za-z]+[\s]{1}[A-Za-z]+))$",
                             ErrorMessage = "Please enter a valid Name")]
         public string CreditCardHolderName { get; set; }
         
         [Required]
-        [StringLength(16,ErrorMessage = "Please enter only 16 digits")]
-        [RegularExpression(@"^([0-9]{16})$",
-                            ErrorMessage = "Please enter a valid Credit Card number")]
+        ///[StringLength(16,ErrorMessage = "Please enter only 16 digits")]
+        ///[RegularExpression(@"^([0-9]{16})$",
+        ///                    ErrorMessage = "Please enter a valid Credit Card number")]
+        [CustomCreditCard]
         public string Number  { get; set; }
         [Required]
         [StringLength(3)]
@@ -55,6 +59,7 @@ namespace Nova_Land.Models
                            ErrorMessage = "Please enter a valid Country")]
         public string Country { get; set; }
 
+        [CustomZipcode]
         public string Zip { get; set; }
 
 

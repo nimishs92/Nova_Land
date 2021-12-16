@@ -42,18 +42,36 @@
         </div>
        <div class="d-block my-3">
           <div class="custom-control custom-radio">
-            <input id="Master" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-            <label class="custom-control-label" for="Master">Master</label>
+            @*<input value="Master" name="paymenttype" type="radio" class="custom-control-input" checked >*@
+            @Html.RadioButtonFor(model => model.paymenttype, "Master")
+            @*<label class="custom-control-label" for="Master">Master</label>*@
+            @Html.Label("Master")
           </div>
           <div class="custom-control custom-radio">
-            <input id="Visa" name="paymentMethod" type="radio" class="custom-control-input" required>
-            <label class="custom-control-label" for="Visa">Visa</label>
+            @*<input value="Visa" name="paymenttype" type="radio" class="custom-control-input"  >*@
+            @Html.RadioButtonFor(model => model.paymenttype, "Visa")
+            @*<label class="custom-control-label" for="Visa">Visa</label>*@
+            @Html.Label("Visa")
           </div>
           <div class="custom-control custom-radio">
-            <input id="AmericanExpress" name="paymentMethod" type="radio" class="custom-control-input" required>
-            <label class="custom-control-label" for="AmericanExpress">American Express</label>
+              @Html.RadioButtonFor(model => model.paymenttype, "AmericanExpress")
+            @Html.Label("American Express")
+            @*<input value="American Express" name="paymenttype" type="radio" class="custom-control-input" >
+            <span asp-validation-for="paymenttype" class="text-danger"></span>
+            <label class="custom-control-label" for="AmericanExpress">American Express</label>*@
           </div>
+          @Html.ValidationMessageFor(m => m.paymenttype, "", new { @class = "error" })
        </div>   
+
+
+                    ///@Html.DisplayFor(m => m.paymenttype)
+                    
+                    
+                    
+
+                    
+
+
        <div class="row">
           <div class="col-md-6 mb-3">
             <label for="cc-name">Credit Card Number</label>
