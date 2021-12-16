@@ -43,7 +43,7 @@ namespace Nova_Land.Models
         [RegularExpression(@"^((0[1-9]{1}[\/]{1}(201[6-9]{1}|202[0-9]{1}|203[0-1]{1}))|(1[0-2]{1}[\/]{1}(201[6-9]{1}|202[0-9]{1}|203[0-1]{1})))$", ErrorMessage = "Please enter a valid Expiry Date")]
         public string Exp_dt { get; set; }
 
-        [RegularExpression(@"^([0-9]+[\s]+[A-Za-z]+)$",
+        [RegularExpression(@"^([0-9]+([\s]+[A-Za-z]+)+)$",
                             ErrorMessage = "Please enter a valid Street address")]
         public string St_Address { get; set; }
 
