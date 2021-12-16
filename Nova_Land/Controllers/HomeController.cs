@@ -50,6 +50,7 @@ namespace Nova_Land.Controllers
             {
                 Order order = _applicationDbContext.Orders.FirstOrDefault(o => o.ID == paymentViewModel.OrderId);
                 order.Payment = paymentViewModel.Payment;
+                order.Status = OrderStatus.COMPLETED;
                 _applicationDbContext.SaveChanges();
                 return View("PaymentSucess");
             }
